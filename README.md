@@ -34,7 +34,7 @@ One can use object files and -nostdlib for a smaller binary
 Development of this program began by modifying an existing program under BSD-3-Clause, 
 This entire program is also BSD-3-Clause.
 
-The original author does not necessarily endorse our usage
+The original author listed in the license does not necessarily endorse our usage
 
 License
 -------
