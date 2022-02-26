@@ -32,8 +32,9 @@ Usage
 One can use se object files and -nostdlib for a smaller file
 
 Development of this program began by modifying an existing program under BSD-3-Clause, 
-This entire program is also BSD-3-Clause 
-Original author does not necessarily endorse our usage
+This entire program is also BSD-3-Clause.
+
+The original author does not necessarily endorse our usage
 
 License
 -------
