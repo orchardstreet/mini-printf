@@ -42,7 +42,6 @@
  */
 
 #include "mini-printf.h"
-
 static int
 mini_strlen(const char *s)
 {
@@ -126,10 +125,12 @@ struct mini_buff {
 static int
 _puts(char *s, int len, void *buf)
 {
-	if(!buf) return len;
-	struct mini_buff *b = buf;
-	char * p0 = b->buffer;
+	struct mini_buff *b;
+	char *p0;
 	int i;
+	if(!buf) return len;
+	b = buf;
+	p0 = b->buffer;
 	/* Copy to buffer */
 	for (i = 0; i < len; i++) {
 		if(b->pbuffer == b->buffer + b->buffer_len - 1) {
@@ -141,32 +142,32 @@ _puts(char *s, int len, void *buf)
 	return b->pbuffer - p0;
 }
 
-int
-mini_vsnprintf(char *buffer, unsigned int buffer_len, const char *fmt, va_list va)
+int mini_vsnprintf(char *buffer, unsigned int buffer_len, const char *fmt, va_list va)
 {
 	struct mini_buff b;
+	int n;
 	b.buffer = buffer;
 	b.pbuffer = buffer;
 	b.buffer_len = buffer_len;
 	if(buffer_len == 0) buffer = (void*) 0;
-	int n = mini_vpprintf(_puts, (buffer != (void*)0)?&b:(void*)0, fmt, va);
+	n = mini_vpprintf(_puts, (buffer != (void*)0)?&b:(void*)0, fmt, va);
 	if(buffer == (void*) 0) {
 		return n;
 	}
 	return b.pbuffer - b.buffer;
 }
 
-int
-mini_vpprintf(int (*puts)(char* s, int len, void* buf), void* buf, const char *fmt, va_list va)
+int mini_vpprintf(int (*puts)(char* s, int len, void* buf), void* buf, const char *fmt, va_list va)
 {
 	char bf[24];
 	char bf2[24];
 	char ch;
+	int n;
 	if(puts == (void*)0) {
 		/* run puts in counting mode. */
 		puts = _puts; buf = (void*)0;
 	}
-	int n = 0;
+	n = 0;
 	while ((ch=*(fmt++))) {
 		int len;
 		if (ch!='%') {
@@ -252,8 +253,7 @@ end:
 }
 
 
-int
-mini_snprintf(char* buffer, unsigned int buffer_len, const char *fmt, ...)
+int mini_snprintf(char* buffer, unsigned int buffer_len, const char *fmt, ...)
 {
 	int ret;
 	va_list va;
@@ -264,8 +264,7 @@ mini_snprintf(char* buffer, unsigned int buffer_len, const char *fmt, ...)
 	return ret;
 }
 
-int
-mini_pprintf(int (*puts)(char*s, int len, void* buf), void* buf, const char *fmt, ...)
+int mini_pprintf(int (*puts)(char*s, int len, void* buf), void* buf, const char *fmt, ...)
 {
 	int ret;
 	va_list va;
