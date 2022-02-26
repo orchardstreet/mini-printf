@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#include "mini-printf.h"
+#include "mini-snprintf.h"
 
 int main(void)
 {
