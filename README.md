@@ -1,7 +1,7 @@
 mini-snprintf
 ===========
 
-Minimal snprintf() implementation for embedded projects, C89 compliant
+Portable and minimal snprintf(), C89 compliant
 
 Compatibility
 -------------
@@ -26,13 +26,14 @@ Usage
 -----
 
 1. Include "mini-printf.h" into your source files.
-2. Add mini-printf.o to your objects list.
-3. Use mini_snprintf() in place of snprint().
-4. Compile, Flash, Test
+2. Use mini_snprintf() in place of snprint().
+3. Compile, Flash, Test
+
+One can use se object files and -nostdlib for a smaller file
 
 Development of this program began by modifying an existing program under BSD-3-Clause, 
-and this entire program is also BSD-3-Clause (c) 2022 William Lupinacci
-License is below, who's author does not necessarily endorse usage
+and this entire program is also BSD-3-Clause 
+License is below, who's original author does not necessarily endorse usage
 
 License
 -------
