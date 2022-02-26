@@ -38,7 +38,6 @@ The original author does not necessarily endorse our usage
 
 License
 -------
-Copyright (c) 2022 William Lupinacci <will.lupinacci@gmail.com>
 
 Copyright (c) 2013,2014 Michal Ludvig <michal@logix.cz>
 All rights reserved.
