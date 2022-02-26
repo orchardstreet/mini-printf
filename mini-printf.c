@@ -141,22 +141,6 @@ _puts(char *s, int len, void *buf)
 	return b->pbuffer - p0;
 }
 
-#ifdef MINI_PRINTF_ENABLE_OBJECTS
-static int (*mini_handler) (void* data, void* obj, int ch, int lhint, char** bf) = 0;
-static void (*mini_handler_freeor)(void* data, void*) = 0;
-static void * mini_handler_data = 0;
-
-void mini_printf_set_handler(
-	void* data,
-	int (*handler)(void* data, void* obj, int ch, int len_hint, char** buf),
-	void (*freeor)(void* data, void* buf))
-{
-	mini_handler = handler;
-	mini_handler_freeor = freeor;
-	mini_handler_data = data;
-}
-#endif
-
 int
 mini_vsnprintf(char *buffer, unsigned int buffer_len, const char *fmt, va_list va)
 {
@@ -178,9 +162,6 @@ mini_vpprintf(int (*puts)(char* s, int len, void* buf), void* buf, const char *f
 	char bf[24];
 	char bf2[24];
 	char ch;
-#ifdef MINI_PRINTF_ENABLE_OBJECTS
-	void* obj;
-#endif
 	if(puts == (void*)0) {
 		/* run puts in counting mode. */
 		puts = _puts; buf = (void*)0;
@@ -258,20 +239,6 @@ mini_vpprintf(int (*puts)(char* s, int len, void* buf), void* buf, const char *f
 						len = puts(ptr, len, buf);
 					}
 					break;
-#ifdef MINI_PRINTF_ENABLE_OBJECTS
-				case 'O' :  /* Object by content (e.g. str) */
-				case 'R' :  /* Object by representation (e.g. repr)*/
-					obj = va_arg(va, void*);
-					len = mini_handler(mini_handler_data, obj, ch, pad_to, &ptr);
-					if (pad_to > 0) {
-						len = mini_pad(ptr, len, pad_char, pad_to, bf);
-						len = puts(bf, len, buf);
-					} else {
-						len = puts(ptr, len, buf);
-					}
-					mini_handler_freeor(mini_handler_data, ptr);
-					break;
-#endif
 				default:
 					len = 1;
 					len = puts(&ch, len, buf);
