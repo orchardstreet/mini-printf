@@ -29,7 +29,7 @@ Usage
 2. Use mini_snprintf() in place of snprint().
 3. Compile, Flash, Test
 
-One can use se object files and -nostdlib for a smaller file
+One can use object files and -nostdlib for a smaller binary
 
 Development of this program began by modifying an existing program under BSD-3-Clause, 
 This entire program is also BSD-3-Clause.
